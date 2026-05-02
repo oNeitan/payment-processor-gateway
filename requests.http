@@ -1,0 +1,21 @@
+POST http://localhost:8080/payments
+content-type: application/json
+
+{
+    "correlationId": "71e88094-a992-4555-8489-77a68667837f",
+    "amount": 102.0
+}
+
+
+
+# -------------------------------- payment processor
+POST http://localhost:8001/payments
+    content-type: application/json
+
+    {
+        "correlationId": "8a9b2c3d-e4f5-4a6b-8c7d-9e0f1a2b3c4d",
+        "amount": 100.0,
+        "requestedAt": "2026-04-29T22:32:00Z"
+    }
+
+GET http://localhost:8001/payments/service-health
