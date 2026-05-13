@@ -1,0 +1,39 @@
+services:
+  api1:
+    image: oneitan/payment-processor-gateway:0.1.0
+    depends_on:
+      - redis
+    hostname: api1
+    environment:
+      - DEFAULT_API_URL=http://payment-processor-default:8080
+      - FALLBACK_API_URL=http://payment-processor-fallback:8080
+      - REDIS_HOST=redis
+    ports:
+      - 9999:9999
+    networks:
+      - backend
+      - payment-processor
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "100MB"
+
+  redis:
+    image: redis:7 
+    hostname: redis
+    networks:
+      - backend
+    ports: 
+      - 6379:6379
+    deploy:
+      resources:
+        limits:
+          cpus: "0.10"
+          memory: "100MB"
+
+networks:
+  backend:
+    driver: bridge
+  payment-processor:
+    external: true
