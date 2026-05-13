@@ -2,11 +2,13 @@ POST http://localhost:8080/payments
 content-type: application/json
 
 {
-    "correlationId": "71e88094-a992-4555-8489-77a68667837f",
-    "amount": 102.0
+    "correlationId": "8b80fd56-70f1-45b6-8119-94f561c1e5d9",
+    "amount": 19.90
 }
 
+GET http://localhost:8080/payments-summary
 
+GET http://localhost:8080/payments-summary?from=2026-05-13T19:40:00Z&to=2026-05-13T19:46:59Z
 
 # -------------------------------- payment processor
 POST http://localhost:8001/payments

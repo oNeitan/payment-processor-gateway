@@ -2,7 +2,9 @@ package br.com.oneitan.integration;
 
 import java.time.temporal.ChronoUnit;
 
+import org.eclipse.microprofile.faulttolerance.Retry;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
+import org.jboss.resteasy.reactive.ClientWebApplicationException;
 
 import br.com.oneitan.model.dto.ProcessorHealthDto;
 import br.com.oneitan.model.dto.ProcessorRequestDto;
@@ -22,6 +24,7 @@ public interface ProcessorFallbackClient {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @Retry(maxRetries = 3, delay = 200, jitter = 100, abortOn = ClientWebApplicationException.class)
     public void postPayment(ProcessorRequestDto body);
 
     @GET
