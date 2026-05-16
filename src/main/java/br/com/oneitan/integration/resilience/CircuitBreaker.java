@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.concurrent.CompletionException;
 import java.util.function.Supplier;
 
+import org.jboss.resteasy.reactive.ClientWebApplicationException;
+
 import br.com.oneitan.model.enums.CircuitState;
 import io.quarkus.arc.Lock;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -34,7 +36,7 @@ public class CircuitBreaker {
             }
 
             return result;
-        } catch (ServerErrorException | ProcessingException | CompletionException e) {
+        } catch (ClientWebApplicationException | ServerErrorException | ProcessingException | CompletionException e) {
             recordExecutionFailure();
             return fallback.get();
         }
